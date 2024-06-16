@@ -37,6 +37,7 @@ function validate() {
   var BtnRadio = document.getElementsByName('location');
   var Selected = false;
 
+
   var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   for (var i = 0; i < BtnRadio.length; i++) {
@@ -44,6 +45,7 @@ function validate() {
       Selected = true;
       break;
     }
+
   }
 
   //Si le prénom est inférieur à 2 caractères
@@ -76,7 +78,7 @@ function validate() {
     return false; // Empêche l'envoie du formulaire
   } 
   
-  //Si la date de naissance est inférieur à 1
+  //Si la quantité est inférieur à 1
   else if (quantity.length < 1) {
     alert('Veuillez entrer le nombre de tournoi à éffectuer.');
     return false; // Empêche l'envoie du formulaire
