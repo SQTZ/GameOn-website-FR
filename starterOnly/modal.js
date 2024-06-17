@@ -7,7 +7,7 @@ function editNav() {
   }
 }
 
-// DOM Elements
+// Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
@@ -27,7 +27,9 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-function validate() {
+function validate(event) {
+  event.preventDefault();
+
   var First = document.getElementById('first').value;
   var Last = document.getElementById('last').value;
   var email = document.getElementById('email').value;
@@ -38,8 +40,10 @@ function validate() {
   var Selected = false;
 
 
+  // Regex pour l'email
   var regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
+  //Vérifie si un lieu est sélectionné
   for (var i = 0; i < BtnRadio.length; i++) {
     if (BtnRadio[i].checked) {
       Selected = true;
@@ -50,54 +54,58 @@ function validate() {
 
   //Si le prénom est inférieur à 2 caractères
   if (First.length < 2) {
-    alert('Le prénom doit contenir au moins 2 caractères.');
+    document.getElementById('ErrorFirst').innerHTML = 'Le prénom doit contenir au moins 2 caractères.';
     return false; // Empêche l'envoie du formulaire
   } 
   
   //Si le nom est inférieur à 2 caractères
   else if (Last.length < 2) {
-    alert('Le nom doit contenir au moins 2 caractères.');
+    document.getElementById('ErrorLast').innerHTML = 'Le nom doit contenir au moins 2 caractères.';
     return false; // Empêche l'envoie du formulaire
   } 
   
   //Si l'email est vide
   else if (email == "") {
-    alert('L’adresse email ne doit pas être vide.');
+    document.getElementById('ErrorEmail').innerHTML = 'Veuillez entrer une adresse email.';
     return false;
   } 
   
   //Si l'email n'est pas valide
   else if (!regexEmail.test(email)) {
-    alert('Veuillez entrer une adresse email valide.');
+    document.getElementById('ErrorEmail').innerHTML = 'Veuillez entrer une adresse email valide.';
     return false;
   } 
   
   //Si la date de naissance est vide
   else if (birthdate == "") {
-    alert('Veuillez entrer votre date de naissance.');
+    document.getElementById('ErrorBirthdate').innerHTML = 'Veuillez entrer votre date de naissance.';
     return false; // Empêche l'envoie du formulaire
   } 
   
   //Si la quantité est inférieur à 1
   else if (quantity.length < 1) {
-    alert('Veuillez entrer le nombre de tournoi à éffectuer.');
+    document.getElementById('ErrorQuantity').innerHTML = 'Veuillez entrer le nombre de tournoi à éffectuer.';
     return false; // Empêche l'envoie du formulaire
   } 
   
   //Si aucun lieu n'est sélectionné
   else if (!Selected) {
-    alert('Veuillez sélectionner un lieu de tournoi.');
+    document.getElementById('ErrorSelected').innerHTML = 'Veuillez sélectionner un lieu de tournoi.';
     return false;
   } 
   
   //Si les conditions ne sont pas acceptées
   else if (checked == false) {
-    alert('Veuillez accepter les conditions d\'utilisation.');
+    document.getElementById('ErrorChecked').innerHTML = 'Veuillez accepter les conditions d\'utilisation.';
     return false; // Empêche l'envoie du formulaire
   }
 
-  //Si tout est valide
-  alert('Merci ! Votre réservation a été reçue.');
-  return true; // Envoie le formulaire
+
+  // Affichage de la modal de succès si toutes les validations sont passées
+  document.querySelector('.bground').style.display = 'none';
+  document.querySelector('.bground-success').style.display = 'block';
 }
 
+function closeSuccessModal() {
+  document.querySelector('.bground-success').style.display = 'none';
+}
